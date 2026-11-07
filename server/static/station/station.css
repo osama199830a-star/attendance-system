@@ -1,0 +1,57 @@
+:root{--blue:#2c5599;--bg:#f3f5fb;--box:#e4eaf6;--red:#b30000;--green:#4e8a2e;--brown:#7a5a00;--purple:#6b3fa0;--dis:#b8c0cf;--ink:#1d2433}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:15px "Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:6px 10px;gap:10px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px;font-weight:700}
+.hbtns{display:flex;gap:6px}
+.hb{background:#3d68b3;color:#fff;border:0;padding:8px 14px;font:inherit;cursor:pointer;border-radius:2px}
+.hb:hover{background:#4a76c4}
+main{padding:6px 8px 10px;flex:1;display:flex;flex-direction:column;gap:6px;max-width:1500px;width:100%;margin:0 auto}
+.form{display:grid;grid-template-columns:auto 1fr auto 150px;gap:6px 8px;align-items:center}
+.form label{white-space:nowrap}
+.form input,.form select{width:100%;border:1px solid #9aa4b6;background:#fff;padding:4px 8px;font:inherit;height:28px;text-align:start}
+.form .addr{grid-column:span 3;display:flex;gap:6px}
+.form .addr input{flex:1;direction:ltr;text-align:left}
+.form label[for=addr]{grid-row:2;grid-column:1}
+.form .addr{grid-row:2;grid-column:2/5}
+.sq{background:var(--blue);color:#fff;border:0;width:36px;height:28px;cursor:pointer}
+.chk{display:flex;align-items:center;gap:6px;margin:0 2px}
+.btns{display:flex;justify-content:center;align-items:center;gap:8px;margin:2px 0;flex-wrap:wrap}
+.b{border:0;color:#fff;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer}
+.b.blue{background:var(--blue)}.b.red{background:var(--red)}.b.green{background:var(--green)}.b.brown{background:var(--brown)}.b.purple{background:var(--purple);font-weight:400;padding:6px 14px}
+.b.sm{padding:10px 14px}
+.b:disabled{background:var(--dis)!important;cursor:not-allowed}
+.b:not(:disabled):hover{filter:brightness(1.12)}
+#zoom{min-width:90px;text-align:center}
+.link{background:var(--box);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 10px;border:1px solid #d3dbec}
+.ltxt{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.url{font-size:22px;font-weight:700;color:var(--green);letter-spacing:1px;align-self:center;word-break:break-all}
+.hint{color:#666;font-size:13px;align-self:flex-start}
+.ltxt .purple{align-self:flex-start}
+#smallqr{background:#fff;padding:4px;image-rendering:pixelated}
+.stage{flex:1;min-height:300px;background:#fff;border:1px solid #333;display:flex;align-items:center;justify-content:center;position:relative;overflow:auto}
+#bigqr{image-rendering:pixelated;width:340px;height:340px;max-width:100%}
+#done{text-align:center;color:var(--green);font-size:22px;font-weight:700;line-height:1.9}
+footer{text-align:center}
+.l1{color:var(--blue);font-weight:700;font-size:20px;margin-top:4px}
+.l2{color:var(--green);font-size:14px}
+.last{color:#555;font-size:13px;min-height:18px;margin-top:2px}
+.net{margin-top:2px;font-size:13px;color:var(--green)}
+.net.off{color:#a15b00}
+.modal{position:fixed;inset:0;background:rgba(15,25,50,.5);display:flex;align-items:center;justify-content:center;z-index:9;padding:12px}
+.modal[hidden]{display:none}
+.mbox{background:#fff;max-width:560px;width:100%;max-height:90vh;overflow:auto;padding:16px 18px;border-top:5px solid var(--blue)}
+.mbox h2{margin:0 0 10px;color:var(--blue);font-size:18px}
+.mbox label{display:block;margin:8px 0 3px;font-weight:600}
+.mbox input,.mbox select{width:100%;border:1px solid #9aa4b6;padding:6px 8px;font:inherit}
+.mbox .row{display:flex;gap:8px;margin-top:12px;justify-content:flex-start}
+.mbox .li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #e6e9f2;padding:6px 2px}
+.mbox .small{color:#666;font-size:13px}
+.mbox .ok{color:var(--green)}.mbox .bad{color:var(--red)}
+@media(max-width:760px){.form{grid-template-columns:auto 1fr}.form .addr,.form label[for=addr]{grid-column:auto;grid-row:auto}.form .addr{grid-column:1/-1}.url{font-size:15px}}
+[hidden]{display:none!important}
+/* المادة والمدة: أنزل قليلاً وخط أكبر */
+.form{margin-top:22px;gap:12px 10px}
+.form label{font-size:20px;font-weight:600}
+.form input,.form select{height:44px;font-size:22px;padding:6px 12px}

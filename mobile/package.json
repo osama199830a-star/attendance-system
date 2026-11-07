@@ -1,0 +1,16 @@
+{
+  "name": "attendance-student",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "prepare:www": "node scripts/prepare.js"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/core": "^6.1.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.0",
+    "@capacitor/assets": "^3.0.5"
+  }
+}

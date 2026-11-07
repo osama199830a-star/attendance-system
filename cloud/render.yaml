@@ -1,0 +1,16 @@
+# نشر بنقرة على Render.com (خطة مدفوعة صغيرة مع قرص دائم 1GB). يمكن استخدام Railway/Fly.io بنفس الـ Dockerfile.
+services:
+  - type: web
+    name: attendance-cloud
+    runtime: docker
+    dockerfilePath: ./cloud/Dockerfile
+    dockerContext: .
+    plan: starter
+    disk: { name: data, mountPath: /data, sizeGB: 1 }
+    envVars:
+      - { key: ATT_MODE, value: cloud }
+      - { key: ADMIN_PASS, sync: false }      # كلمة مرور المسؤول الأولى
+      - { key: SYNC_KEY, sync: false }        # مفتاح مزامنة طويل وعشوائي، يُدخل في برنامج الدكتور
+      - { key: SESSION_SECRET, generateValue: true }
+      - { key: COOKIE_SECURE, value: "1" }
+      - { key: MAIL_OAUTH2_TOKEN, sync: false }   # اختياري (OAuth2)

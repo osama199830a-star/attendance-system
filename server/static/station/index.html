@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نظام الحضور بالباركود - جامعة المعارف</title>
+<link rel="stylesheet" href="station.css">
+</head>
+<body>
+<header>
+  <h1 id="title">نظام الحضور بالباركود - جامعة المعارف</h1>
+  <div class="hbtns">
+    <button class="hb" id="full">(F11) ملء الشاشة</button>
+    <button class="hb" id="admin" title="فتح لوحة المسؤول في المتصفح">⚙ لوحة المسؤول</button>
+    <button class="hb" id="cfg">☁ السحابة</button>
+  </div>
+</header>
+
+<main>
+  <section class="form">
+    <label for="course">المادة</label>
+    <select id="course"><option value="">— اختر المادة —</option></select>
+    <label for="dur">المدة (ثانية)</label>
+    <input id="dur" type="number" min="30" step="30" value="900">
+    <label for="addr" hidden>عنوان الطلاب</label>
+    <div class="addr" hidden><input id="addr" dir="ltr" readonly><button id="swap" class="sq" title="تحديث العنوان">⇄</button></div>
+  </section>
+  <label class="chk" hidden><input type="checkbox" id="auto" checked> تحديث العنوان تلقائياً حسب الشبكة</label>
+
+  <section class="btns">
+    <button id="start" class="b blue">بدء المحاضرة</button>
+    <button id="end" class="b red" disabled>إنهاء</button>
+    <button id="export" class="b green">Excel تصدير</button>
+    <button id="unbind" class="b brown">فك ربط طالب</button>
+    <button id="minus" class="b blue sm">-</button>
+    <span id="zoom">الحجم 100%</span>
+    <button id="plus" class="b blue sm">+</button>
+  </section>
+
+  <section class="link" hidden>
+    <div class="ltxt">
+      <div>:للطلاب — افتحوا هذا الرابط أو امسحوا الرمز</div>
+      <div id="url" class="url" dir="ltr">—</div>
+      <div class="hint" hidden>أول مرة على كل موبايل: اضغط «متقدم» ثم «متابعة» لقبول الشهادة</div>
+      <button id="pub" class="b purple" hidden>🌐 رابط عام (يعمل مع 3G / 4G / 5G)</button>
+    </div>
+    <img id="smallqr" alt="" width="96" height="96">
+  </section>
+
+  <section class="stage" id="stage">
+    <img id="bigqr" alt="" hidden>
+    <div id="done" hidden></div>
+  </section>
+
+  <footer>
+    <div id="line1" class="l1">اضغط زر بدء المحاضرة</div>
+    <div id="line2" class="l2"></div>
+    <div id="last" class="last"></div>
+    <div id="net" class="net">…</div>
+  </footer>
+</main>
+
+<div id="modal" class="modal" hidden><div class="mbox" id="mbox"></div></div>
+<script src="station.js"></script>
+</body>
+</html>

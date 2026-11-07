@@ -1,0 +1,38 @@
+name: Build Windows EXE (برنامج الدكتور)
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+jobs:
+  exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Fetch jsQR (iPhone offline scanning)
+        shell: bash
+        run: curl -fsSL https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js -o server/static/student/jsqr.js
+      - name: Build with PyInstaller
+        shell: cmd
+        run: desktop\build_exe.bat
+      - name: Self-test the built EXE
+        shell: cmd
+        run: |
+          set ATT_DATA=%RUNNER_TEMP%\att
+          start /wait "" dist\AttendanceDoctor\AttendanceDoctor.exe --selftest
+          type %RUNNER_TEMP%\att\selftest.txt
+          findstr /C:"SELFTEST OK" %RUNNER_TEMP%\att\selftest.txt
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+      - name: Build installer (setup.exe)
+        shell: cmd
+        run: '"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" desktop\installer.iss'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AttendanceDoctor-Setup
+          path: dist_installer/AttendanceDoctor-Setup.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AttendanceDoctor-portable
+          path: dist/AttendanceDoctor

@@ -1,0 +1,12 @@
+{
+  "appId": "iq.edu.maarif.attendance",
+  "appName": "الحضور",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

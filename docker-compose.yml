@@ -1,0 +1,11 @@
+# تشغيل الخادم المركزي على أي حاسوب/خادم (Ubuntu أو Windows مع Docker): docker compose up -d --build
+services:
+  attendance:
+    build: { context: ., dockerfile: cloud/Dockerfile }
+    restart: unless-stopped
+    env_file: .env
+    environment: { ATT_MODE: cloud, ATT_DATA: /data, PORT: "8000" }
+    ports: ["8000:8000"]
+    volumes: ["attendance_data:/data"]
+volumes:
+  attendance_data:

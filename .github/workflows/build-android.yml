@@ -1,0 +1,46 @@
+name: Build Android APK (تطبيق الطالب)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      # رابط السحابة يُضبط من: Settings → Secrets and variables → Actions → Variables → CLOUD_URL
+      CLOUD_URL: ${{ vars.CLOUD_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - name: Fetch jsQR
+        run: curl -fsSL https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js -o server/static/student/jsqr.js
+      - name: Prepare web assets
+        working-directory: mobile
+        run: |
+          npm install
+          node scripts/prepare.js
+      - name: Create Android project
+        working-directory: mobile
+        run: |
+          npx cap add android
+          mkdir -p assets && cp ../assets/icon-1024.png assets/icon-only.png && cp ../assets/icon-1024.png assets/icon-foreground.png
+          npx capacitor-assets generate --android --iconBackgroundColor '#2c5599' --iconBackgroundColorDark '#2c5599' || true
+          npx cap sync android
+      - name: Add camera permission + allow HTTP (LAN server) + bump version
+        working-directory: mobile
+        run: |
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.CAMERA' $M || sed -i 's#</manifest>#    <uses-permission android:name="android.permission.CAMERA" />\n</manifest>#' $M
+          grep -q 'usesCleartextTraffic' $M || sed -i 's#<application#<application android:usesCleartextTraffic="true"#' $M
+          sed -i "s/versionCode [0-9]*/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"2.${{ github.run_number }}\"/" android/app/build.gradle
+      - name: Build APK
+        working-directory: mobile/android
+        run: ./gradlew assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Attendance-Student-APK
+          path: mobile/android/app/build/outputs/apk/debug/app-debug.apk
